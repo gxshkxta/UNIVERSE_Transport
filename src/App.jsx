@@ -71,14 +71,12 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* SCROLLABLE AREA WITH GRID LAYOUT */}
-      <div className="relative z-10 pt-24 h-full overflow-y-auto px-4 pb-32 flex flex-col">
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_minmax(auto,70rem)_1fr] gap-6 lg:gap-8 flex-1">
-          
-          <div className="hidden lg:block"></div>
-
-          {/* MAIN CONTENT (Винаги центрирано) */}
-          <main className="w-full flex flex-col justify-start items-center">
+      {/* НОВ СТРУКТУРЕН ЛЕЙАУТ */}
+      <div className="relative z-10 pt-20 h-full overflow-y-auto flex flex-col lg:flex-row w-full">
+        
+        {/* ЛЯВА/ЦЕНТРАЛНА ЧАСТ (Основно съдържание) */}
+        <div className="flex-1 flex flex-col pb-32 px-4 lg:px-8">
+          <main className="w-full mx-auto flex flex-col items-center max-w-7xl">
             <AnimatePresence mode="wait">
               {tab === "home" && (
                 <motion.div key="home" className="w-full" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }}>
@@ -98,30 +96,38 @@ export default function App() {
             </AnimatePresence>
           </main>
 
-          {/* AD BANNER (Плътно вдясно) */}
-          <aside className="w-full lg:w-40 xl:w-48 justify-self-end mt-4 lg:mt-0 flex-shrink-0">
-            <div className="bg-white/30 backdrop-blur-md border border-white/50 p-3 rounded-2xl shadow-lg flex flex-col items-center justify-center lg:sticky lg:top-4 text-center">
-              <span className="text-gray-600 font-bold uppercase tracking-widest text-[10px] mb-2 opacity-70">Реклама</span>
-              <div className="w-full h-24 bg-white/40 border-2 border-dashed border-gray-400/50 rounded-xl flex items-center justify-center p-2">
-                <p className="text-gray-600 font-black tracking-tighter text-xs uppercase leading-tight">Твой<br/>Банер</p>
-              </div>
+          {/* МОБИЛЕН БАНЕР (Показва се само на телефон, най-отдолу) */}
+          <div className="lg:hidden w-full max-w-lg mx-auto mt-10 bg-white/30 backdrop-blur-md border border-white/50 p-3 rounded-2xl shadow-lg flex flex-col items-center justify-center text-center">
+            <span className="text-gray-600 font-bold uppercase tracking-widest text-[10px] mb-2 opacity-70">Реклама</span>
+            <div className="w-full h-24 bg-white/40 border-2 border-dashed border-gray-400/50 rounded-xl flex items-center justify-center p-2">
+              <p className="text-gray-600 font-black tracking-tighter text-xs uppercase leading-tight">Твой<br/>Банер</p>
             </div>
-          </aside>
-          
+          </div>
+
+          {/* FOOTER SIGNATURE */}
+          <div className="mt-16 w-full text-center opacity-80 pb-2">
+            <p className="text-[10px] font-black tracking-widest uppercase text-gray-500">
+              Created by <span className="text-[#7360f2]">KINETRIXgroup</span> 2026
+            </p>
+          </div>
         </div>
 
-        {/* FOOTER SIGNATURE */}
-        <div className="mt-auto w-full text-center opacity-80 pt-10 pb-2">
-          <p className="text-[10px] font-black tracking-widest uppercase text-gray-500">
-            Created by <span className="text-[#7360f2]">KINETRIXgroup</span> 2026
-          </p>
-        </div>
+        {/* ДЕСКТОП БАНЕР (Небостъргач - плътно вдясно, само за компютър) */}
+        <aside className="hidden lg:flex flex-col w-32 xl:w-40 p-3 sticky top-24 h-[calc(100vh-8rem)] mr-4 rounded-3xl bg-white/20 backdrop-blur-md border border-white/40 shadow-xl flex-shrink-0">
+          <span className="text-gray-600 font-bold uppercase tracking-widest text-[10px] mb-3 opacity-70 text-center mt-2">Реклама</span>
+          <div className="w-full flex-1 bg-white/30 border-2 border-dashed border-gray-400/50 rounded-2xl flex flex-col items-center justify-center p-2">
+            <p className="text-gray-600 font-black tracking-tighter text-sm uppercase leading-tight text-center">
+              Т<br/>В<br/>О<br/>Й<br/><br/>Б<br/>А<br/>Н<br/>Е<br/>Р
+            </p>
+          </div>
+        </aside>
+
       </div>
 
       {/* VIBER FLOATING BUTTON */}
       <motion.a
         href="viber://chat?number=359000000000"
-        className="fixed bottom-6 right-6 bg-[#7360f2] text-white p-4 rounded-3xl shadow-[0_10px_30px_rgba(115,96,242,0.6)] z-50 flex items-center justify-center border-4 border-white"
+        className="fixed bottom-6 right-6 lg:right-[calc(12rem+24px)] xl:right-[calc(14rem+24px)] bg-[#7360f2] text-white p-4 rounded-3xl shadow-[0_10px_30px_rgba(115,96,242,0.6)] z-50 flex items-center justify-center border-4 border-white"
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
       >
@@ -134,38 +140,42 @@ export default function App() {
 
 function Home() {
   return (
-    // Всичко е центрирано вертикално. flex-col се запазва навсякъде.
-    <div className="flex flex-col items-center justify-start h-full w-full pb-12">
+    <div className="flex flex-col items-center justify-start w-full">
 
-      {/* СЛОГАН (Увеличен за десктоп) */}
-      <div className="bg-white/30 backdrop-blur-md border border-white/50 p-6 lg:p-10 rounded-3xl shadow-xl w-full max-w-lg lg:max-w-4xl mb-12 text-center relative z-20">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-tight text-gray-900 drop-shadow-md">
-          Ние пренасяме не просто багаж...
-        </h2>
-        <p className="mt-4 text-xl lg:text-2xl font-bold text-gray-800 drop-shadow-sm">
-          А вашето спокойствие <br/>
-          <span className="text-sm lg:text-base bg-black text-white px-3 py-1.5 rounded-md mt-3 inline-block shadow-md">
-            (и всичките ви тежки кашони)
-          </span>
-        </p>
+      {/* ЕКРАН 1: Свободен текст + Бус (Заема първия екран) */}
+      <div className="w-full flex flex-col items-center justify-start min-h-[75vh] lg:min-h-[85vh] pt-4 lg:pt-10">
+        
+        {/* СЛОГАН (Свободен текст, БЕЗ кутия) */}
+        <div className="w-full max-w-lg lg:max-w-4xl text-center relative z-20 mb-2 lg:mb-4 px-2">
+          {/* Бяла сянка около текста, за да се чете перфектно върху всякакъв фон */}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-tight text-gray-900 drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">
+            Ние пренасяме не просто багаж...
+          </h2>
+          <p className="mt-3 lg:mt-5 text-xl lg:text-2xl font-bold text-gray-900 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
+            А вашето спокойствие <br/>
+            <span className="text-sm lg:text-base bg-black text-white px-3 py-1.5 rounded-md mt-2 inline-block shadow-md">
+              (и всичките ви тежки кашони)
+            </span>
+          </p>
+        </div>
+
+        {/* БУС (Вдигнат високо нагоре) */}
+        <motion.div 
+          className="relative w-full max-w-sm lg:max-w-3xl z-10"
+          animate={{ scale: [1, 1.02, 1] }}
+          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+        >
+          <div className="absolute inset-x-10 bottom-8 h-10 lg:h-20 bg-black/30 blur-3xl rounded-full z-0" />
+          <img 
+            src="/van.png" 
+            alt="UNIVERSE Transport Bus" 
+            className="relative w-full h-auto drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] lg:drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)] z-10"
+          />
+        </motion.div>
       </div>
 
-      {/* БУС (Много по-голям на десктоп) */}
-      <motion.div 
-        className="relative w-full max-w-sm lg:max-w-3xl z-10 mb-16 lg:mb-24"
-        animate={{ scale: [1, 1.02, 1] }}
-        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-      >
-        <div className="absolute inset-x-10 bottom-8 h-10 lg:h-20 bg-black/40 blur-3xl rounded-full z-0" />
-        <img 
-          src="/van.png" 
-          alt="UNIVERSE Transport Bus" 
-          className="relative w-full h-auto drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] lg:drop-shadow-[0_40px_80px_rgba(0,0,0,0.6)] z-10"
-        />
-      </motion.div>
-
-      {/* ТАБЛИЦА С ЦЕНИ (Широка и центрирана за десктоп) */}
-      <div className="w-full max-w-lg lg:max-w-4xl bg-white/30 backdrop-blur-md border border-white/50 p-6 lg:p-10 rounded-3xl shadow-lg relative z-20">
+      {/* ЕКРАН 2: Таблицата (Показва се чак при скрол надолу) */}
+      <div className="w-full max-w-lg lg:max-w-4xl bg-white/30 backdrop-blur-md border border-white/50 p-6 lg:p-10 rounded-3xl shadow-lg relative z-20 mt-4 lg:mt-0">
         <h3 className="text-2xl lg:text-4xl font-black uppercase tracking-tight text-center drop-shadow-md mb-8">Ориентировъчни Цени</h3>
         
         <div className="overflow-x-auto">
@@ -195,13 +205,14 @@ function Home() {
         </div>
         <p className="text-xs lg:text-sm text-center text-gray-700 mt-6 font-bold">* Цените са стартови и се уточняват след разговор.</p>
       </div>
+
     </div>
   );
 }
 
 function Services() {
   return (
-    <div className="space-y-6 w-full max-w-lg lg:max-w-4xl mx-auto pb-10">
+    <div className="space-y-6 w-full max-w-lg lg:max-w-4xl mx-auto pb-10 mt-6 lg:mt-12">
       <h2 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-center drop-shadow-md mb-8">Какво предлагаме</h2>
       {[
         { title: "Изнасяне на мебели", desc: "Сваляме от всеки етаж, дори без асансьор." },
@@ -219,7 +230,7 @@ function Services() {
 
 function Offers() {
   return (
-    <div className="space-y-6 w-full max-w-lg lg:max-w-4xl mx-auto pb-10">
+    <div className="space-y-6 w-full max-w-lg lg:max-w-4xl mx-auto pb-10 mt-6 lg:mt-12">
       <h2 className="text-3xl lg:text-4xl font-black uppercase tracking-tight text-center drop-shadow-md mb-8">Супер Оферти</h2>
       {[
         { name: "Базов Транспорт", price: "от 40 лв" },
