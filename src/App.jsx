@@ -5,23 +5,15 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [tab, setTab] = useState("home");
 
-  // Глобална лека вибрация за целия app
-  const globalVibrate = {
-    animate: { scale: [1, 1.005, 1], rotate: [0, 0.2, -0.2, 0] },
-    transition: { repeat: Infinity, duration: 4, ease: "easeInOut" }
-  };
-
   return (
-    <motion.div 
-      {...globalVibrate}
-      className="h-screen relative overflow-hidden font-sans bg-gray-100 text-gray-900"
-    >
+    // Тук махнахме глобалната вибрация. Вече е статичен, стабилен контейнер.
+    <div className="h-screen relative overflow-hidden font-sans bg-gray-100 text-gray-900">
+      
       {/* BACKGROUND VIGNETTE (Тъмни краища, светло в средата) */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_20%,_rgba(0,0,0,0.7)_120%)] z-0 pointer-events-none" />
 
       {/* GLASS TOP BAR */}
       <header className="fixed top-0 left-0 w-full flex items-center justify-between p-4 z-40 bg-white/30 backdrop-blur-md border-b border-white/40 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
-        {/* Лява част: Хамбургер + Име */}
         <div className="flex items-center gap-3">
           <button onClick={() => setMenuOpen(true)} className="text-3xl font-bold drop-shadow-md text-gray-800">
             ☰
@@ -31,12 +23,11 @@ export default function App() {
           </h1>
         </div>
 
-        {/* Дясна част: Икони за контакт */}
         <div className="flex items-center gap-3 text-xl">
-          <motion.a whileHover={{ scale: 1.2 }} href="#" className="bg-blue-500/80 backdrop-blur-sm text-white p-2 rounded-full shadow-lg">⚡</motion.a>
-          <motion.a whileHover={{ scale: 1.2 }} href="#" className="bg-[#7360f2]/80 backdrop-blur-sm text-white p-2 rounded-full shadow-lg">🟣</motion.a>
-          <motion.a whileHover={{ scale: 1.2 }} href="#" className="bg-green-500/80 backdrop-blur-sm text-white p-2 rounded-full shadow-lg">🟢</motion.a>
-          <motion.a whileHover={{ scale: 1.2 }} href="tel:0888000000" className="bg-gray-800/80 backdrop-blur-sm text-white p-2 rounded-full shadow-lg">📞</motion.a>
+          <motion.a whileHover={{ scale: 1.1 }} href="#" className="bg-blue-500/80 backdrop-blur-sm text-white p-2 rounded-full shadow-lg">⚡</motion.a>
+          <motion.a whileHover={{ scale: 1.1 }} href="#" className="bg-[#7360f2]/80 backdrop-blur-sm text-white p-2 rounded-full shadow-lg">🟣</motion.a>
+          <motion.a whileHover={{ scale: 1.1 }} href="#" className="bg-green-500/80 backdrop-blur-sm text-white p-2 rounded-full shadow-lg">🟢</motion.a>
+          <motion.a whileHover={{ scale: 1.1 }} href="tel:0888000000" className="bg-gray-800/80 backdrop-blur-sm text-white p-2 rounded-full shadow-lg">📞</motion.a>
         </div>
       </header>
 
@@ -85,37 +76,34 @@ export default function App() {
       <main className="relative z-10 pt-24 h-full overflow-y-auto px-4 pb-32">
         <AnimatePresence mode="wait">
           {tab === "home" && (
-            <motion.div key="home" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
+            <motion.div key="home" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }}>
               <Home />
             </motion.div>
           )}
           {tab === "services" && (
-            <motion.div key="services" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
+            <motion.div key="services" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }}>
               <Services />
             </motion.div>
           )}
           {tab === "offers" && (
-            <motion.div key="offers" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
+            <motion.div key="offers" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }}>
               <Offers />
             </motion.div>
           )}
         </AnimatePresence>
       </main>
 
-      {/* VIBER FLOATING BUTTON */}
+      {/* VIBER FLOATING BUTTON (Само леко туптене) */}
       <motion.a
         href="viber://chat?number=359000000000"
         className="fixed bottom-6 right-6 bg-[#7360f2] text-white p-4 rounded-3xl shadow-[0_10px_30px_rgba(115,96,242,0.6)] z-50 flex items-center justify-center border-4 border-white"
-        animate={{ 
-          scale: [1, 1.15, 1],
-          rotate: [0, 5, -5, 0]
-        }}
+        animate={{ scale: [1, 1.05, 1] }}
         transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
       >
         <span className="text-3xl font-black mr-2">🟣</span>
         <span className="font-black uppercase tracking-tight text-lg">Пиши ни!</span>
       </motion.a>
-    </motion.div>
+    </div>
   );
 }
 
@@ -134,10 +122,11 @@ function Home() {
         </p>
       </div>
 
+      {/* ПУЛСИРАЩ БУС (Много лека пулсация) */}
       <motion.div 
         className="relative w-full max-w-md mx-auto z-10"
-        animate={{ y: [0, -15, 0] }}
-        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+        animate={{ scale: [1, 1.02, 1] }}
+        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
       >
         <div className="absolute inset-x-0 bottom-4 h-24 bg-black/20 blur-2xl rounded-full" />
         <img 
@@ -159,7 +148,7 @@ function Services() {
         { title: "Строителни отпадъци", desc: "Събиране и извозване до сметище." },
         { title: "Цялостно разчистване", desc: "Къртим и чистим до тухла." }
       ].map((s, i) => (
-        <motion.div key={i} whileHover={{ scale: 1.05 }} className="bg-white/40 backdrop-blur-md border border-white/50 p-6 rounded-3xl shadow-lg">
+        <motion.div key={i} whileHover={{ scale: 1.03 }} className="bg-white/40 backdrop-blur-md border border-white/50 p-6 rounded-3xl shadow-lg">
           <h3 className="font-black text-xl uppercase tracking-tight text-gray-900">{s.title}</h3>
           <p className="text-gray-800 font-medium mt-2">{s.desc}</p>
         </motion.div>
@@ -177,7 +166,7 @@ function Offers() {
         { name: "Среден Ремонт", price: "от 150 лв" },
         { name: "Пълна Лудница", price: "от 300 лв" },
       ].map((offer, i) => (
-        <motion.div key={i} whileHover={{ scale: 1.05 }} className="bg-white/40 backdrop-blur-md border border-white/50 p-6 rounded-3xl shadow-lg flex justify-between items-center">
+        <motion.div key={i} whileHover={{ scale: 1.03 }} className="bg-white/40 backdrop-blur-md border border-white/50 p-6 rounded-3xl shadow-lg flex justify-between items-center">
           <h3 className="font-black text-xl uppercase tracking-tight text-gray-900">{offer.name}</h3>
           <span className="bg-gray-900 text-white font-black px-4 py-2 rounded-xl shadow-md">{offer.price}</span>
         </motion.div>
