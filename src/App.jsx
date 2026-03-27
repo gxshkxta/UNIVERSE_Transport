@@ -8,7 +8,7 @@ export default function App() {
   return (
     <div className="h-screen relative overflow-hidden font-sans bg-gray-100 text-gray-900 flex flex-col">
       
-      {/* BACKGROUND VIGNETTE */}
+      {/* BACKGROUND VIGNETTE (Тъмни краища) */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_20%,_rgba(0,0,0,0.7)_120%)] z-0 pointer-events-none" />
 
       {/* GLASS TOP BAR */}
@@ -73,11 +73,12 @@ export default function App() {
 
       {/* SCROLLABLE AREA WITH GRID LAYOUT */}
       <div className="relative z-10 pt-24 h-full overflow-y-auto px-4 pb-32 flex flex-col">
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_minmax(auto,32rem)_1fr] gap-6 lg:gap-8 flex-1">
+        {/* 3-колонна структура за десктоп за центриране */}
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_minmax(auto,70rem)_1fr] gap-6 lg:gap-8 flex-1">
           
           <div className="hidden lg:block"></div>
 
-          {/* MAIN CONTENT */}
+          {/* MAIN CONTENT (Сега с responsive подредба) */}
           <main className="w-full flex flex-col justify-start">
             <AnimatePresence mode="wait">
               {tab === "home" && (
@@ -98,7 +99,7 @@ export default function App() {
             </AnimatePresence>
           </main>
 
-          {/* AD BANNER */}
+          {/* AD BANNER (Плътно вдясно) */}
           <aside className="w-full lg:w-40 xl:w-48 justify-self-end mt-4 lg:mt-0 flex-shrink-0">
             <div className="bg-white/30 backdrop-blur-md border border-white/50 p-3 rounded-2xl shadow-lg flex flex-col items-center justify-center lg:sticky lg:top-4 text-center">
               <span className="text-gray-600 font-bold uppercase tracking-widest text-[10px] mb-2 opacity-70">Реклама</span>
@@ -134,65 +135,73 @@ export default function App() {
 
 function Home() {
   return (
-    <div className="flex flex-col items-center justify-start h-full w-full">
-      {/* СЛОГАН */}
-      <div className="bg-white/30 backdrop-blur-md border border-white/50 p-6 rounded-3xl shadow-xl w-full mb-8 text-center relative z-20">
-        <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter leading-tight text-gray-900 drop-shadow-md">
-          Ние пренасяме не просто багаж...
-        </h2>
-        <p className="mt-4 text-xl font-bold text-gray-800 drop-shadow-sm">
-          А вашето спокойствие <br/>
-          <span className="text-sm bg-black text-white px-2 py-1 rounded-md mt-2 inline-block shadow-md">
-            (и всичките ви тежки кашони)
-          </span>
-        </p>
+    // РАЗГЪВАНЕ: flex-col за телефон -> flex-row за десктоп
+    <div className="flex flex-col lg:flex-row items-center lg:items-start justify-start lg:justify-between h-full w-full gap-8 lg:gap-16 pb-12">
+
+      {/* ЛЯВА КОЛОНА (Десктоп): Слоган + Таблица */}
+      <div className="flex-1 w-full flex flex-col gap-8">
+        {/* СЛОГАН */}
+        <div className="bg-white/30 backdrop-blur-md border border-white/50 p-6 rounded-3xl shadow-xl w-full text-center lg:text-left relative z-20">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-tight text-gray-900 drop-shadow-md">
+            Ние пренасяме не просто багаж...
+          </h2>
+          <p className="mt-4 text-xl font-bold text-gray-800 drop-shadow-sm">
+            А вашето спокойствие <br/>
+            <span className="text-sm bg-black text-white px-2 py-1 rounded-md mt-2 inline-block shadow-md lg:ml-0 lg:mr-auto">
+              (и всичките ви тежки кашони)
+            </span>
+          </p>
+        </div>
+
+        {/* ТАБЛИЦА С ЦЕНИ (Местим я тук вътре за десктоп) */}
+        <div className="w-full bg-white/30 backdrop-blur-md border border-white/50 p-6 rounded-3xl shadow-lg relative z-20">
+          <h3 className="text-2xl font-black uppercase tracking-tight text-center lg:text-left drop-shadow-md mb-6">Ориентировъчни Цени</h3>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b-2 border-gray-800/30">
+                  <th className="pb-3 text-xs md:text-sm font-black uppercase tracking-widest text-gray-800">Услуга</th>
+                  <th className="pb-3 text-xs md:text-sm font-black uppercase tracking-widest text-gray-800">Време</th>
+                  <th className="pb-3 text-xs md:text-sm font-black uppercase tracking-widest text-gray-800 text-right">Цена</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { service: "Градски транспорт (само бус)", time: "до 1 ч.", price: "от 40 лв" },
+                  { service: "Преместване (бус + 2 момчета)", time: "до 2 ч.", price: "от 90 лв" },
+                  { service: "Изхвърляне на стари мебели", time: "до 2 ч.", price: "от 70 лв" },
+                  { service: "Извозване строителни отпадъци", time: "до 1 ч.", price: "от 60 лв" }
+                ].map((row, i) => (
+                  <tr key={i} className="border-b border-gray-800/10 hover:bg-white/40 transition-colors">
+                    <td className="py-4 text-sm font-bold text-gray-900 pr-2 leading-tight">{row.service}</td>
+                    <td className="py-4 text-sm font-medium text-gray-800 whitespace-nowrap">{row.time}</td>
+                    <td className="py-4 text-sm font-black text-gray-900 text-right whitespace-nowrap">{row.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-center text-gray-700 mt-4 font-bold">* Цените са стартови и се уточняват след разговор.</p>
+        </div>
       </div>
 
-      {/* БУС */}
+      {/* ДЯСНА КОЛОНА (Десктоп): БУС */}
       <motion.div 
-        className="relative w-full max-w-sm mx-auto z-10"
+        // Настройка на размерите: малък на телефон, голям на десктоп
+        className="relative w-full max-w-sm lg:max-w-xl lg:flex-1 mx-auto lg:mx-0 z-10 lg:sticky lg:top-32"
         animate={{ scale: [1, 1.02, 1] }}
         transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
       >
-        <div className="absolute inset-x-0 bottom-4 h-24 bg-black/20 blur-2xl rounded-full" />
+        {/* Адаптирана сянка за прозрачен фон */}
+        <div className="absolute inset-x-10 bottom-8 h-10 bg-black/40 blur-3xl rounded-full z-0" />
         <img 
-          src="/van.jpg" 
+          src="/van.png"  // Променено име на файл в кода
           alt="UNIVERSE Transport Bus" 
-          className="relative w-full h-auto drop-shadow-2xl z-10 rounded-2xl"
+          // ПРЕМАХНАТО: rounded-2xl. ОСТАВЕНО: drop-shadow-2xl за дълбочина.
+          className="relative w-full h-auto drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10"
         />
       </motion.div>
-
-      {/* ТАБЛИЦА С ЦЕНИ (Новата секция под буса) */}
-      <div className="mt-12 w-full bg-white/30 backdrop-blur-md border border-white/50 p-6 rounded-3xl shadow-lg relative z-20">
-        <h3 className="text-2xl font-black uppercase tracking-tight text-center drop-shadow-md mb-6">Ориентировъчни Цени</h3>
-        
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b-2 border-gray-800/30">
-                <th className="pb-3 text-xs md:text-sm font-black uppercase tracking-widest text-gray-800">Услуга</th>
-                <th className="pb-3 text-xs md:text-sm font-black uppercase tracking-widest text-gray-800">Време</th>
-                <th className="pb-3 text-xs md:text-sm font-black uppercase tracking-widest text-gray-800 text-right">Цена</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                { service: "Градски транспорт (само бус)", time: "до 1 ч.", price: "от 40 лв" },
-                { service: "Преместване (бус + 2 момчета)", time: "до 2 ч.", price: "от 90 лв" },
-                { service: "Изхвърляне на стари мебели", time: "до 2 ч.", price: "от 70 лв" },
-                { service: "Извозване строителни отпадъци (в чували)", time: "до 1 ч.", price: "от 60 лв" }
-              ].map((row, i) => (
-                <tr key={i} className="border-b border-gray-800/10 hover:bg-white/40 transition-colors">
-                  <td className="py-4 text-sm font-bold text-gray-900 pr-2 leading-tight">{row.service}</td>
-                  <td className="py-4 text-sm font-medium text-gray-800 whitespace-nowrap">{row.time}</td>
-                  <td className="py-4 text-sm font-black text-gray-900 text-right whitespace-nowrap">{row.price}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="text-xs text-center text-gray-700 mt-4 font-bold">* Цените са стартови и се уточняват след разговор.</p>
-      </div>
     </div>
   );
 }
